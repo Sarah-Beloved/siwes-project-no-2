@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mark Attendance | Anglican Girls' College Ketu - Ijanikin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <img src="assets/logo-placeholder.png" alt="School logo" width="48" height="48" class="logo"/>
+        <div>
+          <h1>Anglican Girls' College Ketu - Ijanikin</h1>
+          <div class="tagline">Destined for Greatness • <span class="badge">Arise and shine</span></div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="secondary.html">Secondary Schools</a>
+        <a href="register.html">Register Student</a>
+        <a href="attendance.html" class="active">Mark Attendance</a>
+        <a href="reports.html">View Reports</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Mark Attendance</h2>
+      <p>Select the date and mark each student as Present or Absent.</p>
+
+      <label for="attendanceDate"><strong>Date:</strong></label>
+      <input type="date" id="attendanceDate" />
+
+      <table id="attendanceTable" border="1" width="100%" cellspacing="0" cellpadding="8">
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Admission No</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <button id="saveAttendance" class="button" style="margin-top:15px;">Save Attendance</button>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Anglican Girls' College Ketu - Ijanikin • <a href="about.html">About Us</a> • <a href="contact.html">Contact</a></p>
+    </div>
+  </footer>
+
+  <!-- attendance script (placed here so DOM exists) -->
+  <script src="attendance.js"></script>
+</body>
+</html>

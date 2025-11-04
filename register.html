@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register Student | Anglican Girls' College Ketu - Ijanikin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <img src="/assets/logo-placeholder.png" alt="School logo" width="48" height="48" class="logo"/>
+        <div>
+          <h1>Anglican Girls' College Ketu - Ijanikin</h1>
+          <div class="tagline">Destined for Greatness • <span class="badge">Arise and shine</span></div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="secondary.html">Secondary Schools</a>
+        <a href="register.html" class="active">Register Student</a>
+        <a href="attendance.html">Mark Attendance</a>
+        <a href="reports.html">View Reports</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="card">
+  <h2>Register Old Student</h2>
+  <form id="registerForm">
+    <label>Student Name:</label>
+    <input type="text" id="studentName" required>
+
+    <label>Class:</label>
+    <input type="text" id="studentClass" required>
+
+    <label>Admission Number:</label>
+    <input type="text" id="admissionNo" required>
+
+    <button type="submit" class="button">Register</button>
+  </form>
+
+  <h3>Registered Students</h3>
+  <table id="studentsTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Admission No</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Register New Student</h2>
+
+  <form id="newStudentForm">
+    <label for="newStudentName">Full Name:</label>
+    <input type="text" id="fullname" name="fullname" required /><br/><br/>
+
+    <label for="newStudentClass">Age:</label>
+    <input type="number" id="age" name="age" min="10" max="25" required /><br/><br/>
+    
+    <label for="newStudentClass">Class:</label>
+    <select id="class" name="class" required>
+          <option value="">Select Class</option>
+          <option>JSS 1</option>
+          <option>JSS 2</option>
+          <option>JSS 3</option>
+          <option>SSS 1</option>
+          <option>SSS 2</option>
+          <option>SSS 3</option>
+        </select><br/><br/>
+
+    <label for="newAdmissionNo">Admission Number:</label>
+    <input type="text" id="newAdmissionNo" required /><br/><br/>
+    
+    <label for="parent">Parent / Guardian Name:</label><br/>
+        <input type="text" id="parent" name="parent" required /><br/><br/>
+
+        <label for="contact">Parent Contact Number:</label><br/>
+        <input type="tel" id="contact" name="contact" placeholder="e.g. 08012345678" required /><br/><br/>
+
+        <label for="address">Home Address:</label><br/>
+        <textarea id="address" name="address" rows="3" required></textarea><br/><br/>
+
+        <label for="address">Last School Attended:</label><br/>
+        <textarea id="school" name="school" rows="3" required></textarea><br/><br/>
+
+    <button type="submit" class="button">Register</button> 
+  </form>
+
+  <h3>Registered New Students</h3>
+  <table id="newStudentsTable">
+      <tr>
+        <th>Name</th>
+         <th>Age</th>
+        <th>Class</th>
+        <th>Admission No</th>
+        <th>Parent/Guardian Name</th>
+        <th>Parent Contact Number</th>
+        <th>Home Address</th>
+        <th>Last School Attended</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <P><strong>total new students registered </strong> <span id="newcount">0</span></P>
+    <thead>
+ </main>
+  <footer>
+    <div class="container">
+      <p>© 2025 Anglican Girls' College Ketu - Ijanikin • <a href="#">About Us</a> • <a href="#">Contact</a></p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
