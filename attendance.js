@@ -1,4 +1,5 @@
-// attendance.js — loads registered students (old + new) and saves attendance by date
+// attendance.js — integrates with Node.js + MongoDB backend
+
 document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector("#attendanceTable tbody");
   const saveBtn = document.getElementById("saveAttendance");
@@ -9,24 +10,24 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Load students: note the keys your registration code uses
+  // --- Load registered students from localStorage (still works for old data)
   const oldStudents = JSON.parse(localStorage.getItem("students")) || [];
   const newStudents = JSON.parse(localStorage.getItem("newStudents")) || [];
 
-  // Normalize students into a common shape: { name, className, admissionNo }
   const allStudents = [
-    ...oldStudents.map(s => ({
+    ...oldStudents.map((s) => ({
       name: s.name || s.fullname || "",
       className: s.class || s.className || "",
-      admissionNo: s.admissionNo || s.admission || s.admissionNo || ""
+      admissionNo: s.admissionNo || s.admission || "",
     })),
-    ...newStudents.map(s => ({
+    ...newStudents.map((s) => ({
       name: s.fullname || s.name || "",
       className: s.class || s.className || "",
-      admissionNo: s.admissionNo || s.newAdmissionNo || ""
-    }))
+      admissionNo: s.admissionNo || s.newAdmissionNo || "",
+    })),
   ];
 
+  // --- Render table
   function renderTable() {
     tableBody.innerHTML = "";
     allStudents.forEach((student, idx) => {
@@ -49,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderTable();
 
-  saveBtn.addEventListener("click", () => {
+  // --- Save attendance to MongoDB through backend
+  saveBtn.addEventListener("click", async () => {
     const selectedDate = dateInput.value;
     if (!selectedDate) {
       alert("Please select a date before saving attendance.");
@@ -57,24 +59,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const attendanceData = allStudents.map((s, idx) => {
-      const select = document.getElementById(status-${idx});
+      const select = document.getElementById(`status-${idx}`);
       return {
         name: s.name,
-        class: s.className,
+        className: s.className,
         admissionNo: s.admissionNo || "-",
-        status: select ? select.value : "Not marked"
+        status: select ? select.value : "Not marked",
+        date: selectedDate,
       };
     });
 
-    // store attendanceRecords as object keyed by date
-    const records = JSON.parse(localStorage.getItem("attendanceRecords")) || {};
-    records[selectedDate] = attendanceData;
-    localStorage.setItem("attendanceRecords", JSON.stringify(records));
+    try {
+      const res = await fetch("http://localhost:5000/api/attendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: selectedDate, records: attendanceData }),
+      });
 
-    alert(Attendance for ${selectedDate} saved.);
+      if (!res.ok) {
+        throw new Error("Failed to save attendance");
+      }
+
+      const result = await res.json();
+      alert(`✅ Attendance for ${selectedDate} saved successfully.`);
+      console.log("Saved attendance:", result);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Error saving attendance. Check console for details.");
+    }
   });
 
-  // small utility to avoid accidental HTML injection
+  // --- Utility to avoid HTML injection
   function escapeHtml(text) {
     if (!text && text !== 0) return "";
     return String(text)
